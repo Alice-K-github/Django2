@@ -18,4 +18,13 @@ class ProductAdmin(admin.ModelAdmin):
         "name",
         "price",
         "category",
+        "description",
+    )
+    list_filter = ('id',)
+    search_fields = (
+        "id",
+        "name",
+        "price",
+        "category",
+        "description",
     )
