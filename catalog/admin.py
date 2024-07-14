@@ -16,11 +16,6 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "name",
-        "description",
-        "picture",
         "price",
-        "created_at",
-        "updated_at",
         "category",
-        "manufactured_at",
     )
