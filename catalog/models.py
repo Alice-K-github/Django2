@@ -27,10 +27,10 @@ class Product(models.Model):
     created_at = models.DateTimeField(verbose_name='Дата создания записи в БД', **NULLABLE)
     updated_at = models.DateTimeField(verbose_name='Дата последнего изменения записи в БД', **NULLABLE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    manufactured_at = models.CharField(max_length=150, verbose_name='Дата производства продукта', **NULLABLE)
+
 
     def __str__(self):
-        return f'{self.name} {self.description} {self.picture} {self.category} {self.price} {self.created_at} {self.updated_at} {self.manufactured_at}'
+        return f'{self.name} {self.description} {self.picture} {self.category} {self.price} {self.created_at} {self.updated_at}'
 
     class Meta:
         verbose_name = 'наименование продукта'  # Настройка для наименования одного объекта
