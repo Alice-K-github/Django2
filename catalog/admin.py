@@ -27,4 +27,5 @@ class ProductAdmin(admin.ModelAdmin):
         "price",
         "category",
         "description",
+        "manufactured_at"
     )
