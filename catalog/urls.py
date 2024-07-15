@@ -7,7 +7,7 @@ from catalog.views import (products_list)
 app_name = 'catalog'
 urlpatterns = [
                 path("admin/", admin.site.urls),
-                path('', products_list),
+                path('', products_list, name='products_list'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
