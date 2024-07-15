@@ -8,8 +8,8 @@ from catalog.models import Product, Category
 # Контроллеры
 
 # Create your views here.
-def index(request):
+def products_list(request):
     #product = Catalog.objects.get(pk=pk)
-    product = Category.objects.all()
-    context = {'product': product}
-    return render(request, 'catalog/page.html', context)
+    products = Product.objects.all()
+    context = {'products': products}
+    return render(request, 'products_list.html', context)
