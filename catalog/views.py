@@ -1,16 +1,15 @@
+from gettext import Catalog
+
 from django.shortcuts import render
+
+from catalog.models import Product, Category
 
 
 # Контроллеры
 
 # Create your views here.
-def contacts(request):
-    return render(request, 'catalog/contacts.html')
-
-
-def home(request):
-    return render(request, 'catalog/home.html')
-
-
-def page(request):
-    return render(request, 'catalog/page.html')
+def index(request):
+    #product = Catalog.objects.get(pk=pk)
+    product = Category.objects.all()
+    context = {'product': product}
+    return render(request, 'catalog/page.html', context)
