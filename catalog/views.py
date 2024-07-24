@@ -16,17 +16,16 @@ def home(request):
 
 
 # Create your views here.
-def products_list(request):
-    # product = Catalog.objects.get(pk=pk)
-    # !!!
+
+def product_list(request):
     products = Product.objects.all()
-    context = {'products': products}
-    return render(request, 'products_list.html', context)
+    # должен быть object_list для прохождение в цикле по всем продуктам
+    context = {"object_list": products}
+    return render(request, "product_list.html", context)
 
 
-def products_details(request, pk):
+def product_detail(request, pk):
     # !!!
     product = get_object_or_404(Product, pk=pk)
-    context = {"product":product}
-    return render(request, 'products_ details.html', context)
-
+    context = {"product": product}
+    return render(request, 'product_detail.html', context)

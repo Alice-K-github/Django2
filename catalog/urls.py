@@ -1,21 +1,15 @@
-from django.conf import settings
-from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
-from catalog.views import (products_list, contacts, home, products_details)
+from django.urls import path
+from catalog.views import (product_list, contacts, home, product_detail)
 
 app_name = 'catalog'
 urlpatterns = [
-                path("admin/", admin.site.urls),
-                path('', products_list, name='products_list'),
-                # ! ?
-                path('products/<int:pk>/', products_details, name='products_details'),
-                path('contacts/', contacts),
-                path('home/', home)
-
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-
+    path("admin/", admin.site.urls),
+    path('', product_list, name='product_list'),
+    path('product/<int:pk>/', product_detail, name='product_detail'),
+    path('contacts/', contacts),
+    path('home/', home),
+]
 
 """app_name = CatalogConfig.name
 
