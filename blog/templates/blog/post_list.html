@@ -26,7 +26,7 @@
             {% for post in object_list %}
     <div class="container mt-5">
             <div class="card" style="width: 18rem;">
-                <img src="{{ post.preview }}" class="card-img-top" alt="...">
+                <img src="{{ post.preview | media_filter }}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{ post.title }}</h5>
                     <p class="card-text">{{ post.content }}</p>
