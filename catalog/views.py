@@ -9,11 +9,11 @@ from catalog.models import Product
 # Контроллеры
 
 def contacts(request):
-    return render(request, 'contacts.html')
+    return render(request, 'contacts.html') # Я без понятия зачем это мне
 
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'home.html') # И это тоже -_(:\)_-
 
 
 class ProductListView(ListView):
@@ -26,17 +26,21 @@ class ProductDetailView(DetailView):
     # catalog/Product_detail
 
 class ProductCreateView(CreateView):
+    # product_create
     model = Product
-    form_class = ProductForm
-    template_name = 'catalog/product_form.html'
-    success_url = reverse_lazy('catalog:product_list')
+    form_class = ProductForm # Подключение формы ProductForm
+    template_name = 'catalog/product_form.html' # шаблон
+    success_url = reverse_lazy('catalog:product_list') # Перенаправляет на список продуктов после создания
+
 
 
 class ProductUpdateView(UpdateView):
+    # product_update
     model = Product
-    form_class = ProductForm
-    template_name = 'catalog/product_form.html'
-    success_url = reverse_lazy('catalog:product_form')
+    form_class = ProductForm # Подключение формы ProductForm
+    template_name = 'catalog/product_form.html' # шаблон
+    success_url = reverse_lazy('catalog:product_form') # (?) а это нужно тут вообще?
+
 
     def get_success_url(self):
         # После редактирования возвращает на страницу (деталей) этого продукта, а не на product_list
@@ -44,9 +48,10 @@ class ProductUpdateView(UpdateView):
 
 
 class ProductDeleteView(DeleteView):
+    # product_delete
     model = Product
-    template_name = 'catalog/product_delete.html'
-    success_url = reverse_lazy('catalog:product_list')
+    template_name = 'catalog/product_delete.html' # шаблон
+    success_url = reverse_lazy('catalog:product_list') # Перенаправляет на список продуктов после удаления продукта
 
 
 

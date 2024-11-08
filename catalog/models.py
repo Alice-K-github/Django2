@@ -18,6 +18,7 @@ class Category(models.Model):
         verbose_name_plural = 'наименования категорий'  # Настройка для наименования набора объектов
 
 
+
 class Product(models.Model):
     #  Продукты
     name = models.CharField(max_length=150, verbose_name='Наименование', **NULLABLE)
