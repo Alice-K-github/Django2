@@ -1,9 +1,11 @@
 from django.db import models
 
+# Обозначение не-пустого значения переменных
 NULLABLE = {'blank': True, 'null': True}
 
 
 class Post(models.Model):
+    # Посты в приложении блог
     title = models.TextField(verbose_name='Заголовок', **NULLABLE)
     content = models.TextField(verbose_name='Содержимое', **NULLABLE)
     preview = models.ImageField(upload_to='pictures/', verbose_name='Изображение(превью)', **NULLABLE)
@@ -11,5 +13,6 @@ class Post(models.Model):
     is_published = models.BooleanField(verbose_name='Признак публикации', **NULLABLE)
     views_counter = models.PositiveIntegerField(verbose_name='Количество просмотров', default=0, **NULLABLE)
 
+    # Строковое обозначение
     def __str__(self):
         return f'{self.title} {self.content} {self.preview} {self.created_at} {self.is_published} {self.views_counter}'

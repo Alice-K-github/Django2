@@ -6,6 +6,7 @@ NULLABLE = {'blank': True, 'null': True}
 
 
 class Category(models.Model):
+    # Категории продуктов
     name = models.CharField(max_length=150, verbose_name='Наименование', **NULLABLE)
     description = models.CharField(max_length=150, verbose_name='Описание', **NULLABLE)
 
@@ -15,11 +16,10 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'наименование категории'  # Настройка для наименования одного объекта
         verbose_name_plural = 'наименования категорий'  # Настройка для наименования набора объектов
-        # verbose_description = 'описание категории'
-        # verbose_description_plural = 'описания категорий'
 
 
 class Product(models.Model):
+    #  Продукты
     name = models.CharField(max_length=150, verbose_name='Наименование', **NULLABLE)
     description = models.CharField(max_length=500, verbose_name='Описание', **NULLABLE)
     picture = models.ImageField(upload_to='pictures/', verbose_name='Изображение(превью)', **NULLABLE)
@@ -27,7 +27,7 @@ class Product(models.Model):
     created_at = models.DateTimeField(verbose_name='Дата создания записи в БД', **NULLABLE)
     updated_at = models.DateTimeField(verbose_name='Дата последнего изменения записи в БД', **NULLABLE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    manufactured_at = models.CharField(max_length=150, verbose_name='Дата производства продукта', **NULLABLE)
+    manufactured_at = models.DateTimeField(verbose_name='Дата производства продукта', **NULLABLE)
 
 
 
@@ -37,15 +37,4 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'наименование продукта'  # Настройка для наименования одного объекта
         verbose_name_plural = 'наименования продуктов'  # Настройка для наименования набора объектов
-        # verbose_description = 'описание'
-        # verbose_description_plural = 'описания'
-        # verbose_picture = 'изображение'
-        # verbose_picture_plural = 'изображения'
-        # verbose_category = 'категория'
-        # verbose_category_plural = 'категории'
-        # verbose_price = 'цена'
-        # verbose_price_plural = 'цены'
-        # verbose_created_at = 'дата'
-        # verbose_created_at_plural = 'даты'
-        # verbose_updated_at = 'дата'
-        # verbose_updated_at_plural = 'даты'
+
