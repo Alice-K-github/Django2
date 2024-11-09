@@ -1,18 +1,36 @@
 {% extends 'catalog/home.html' %}
 {% load my_tags %}
 {% block content %}
-<h1> Категории: </h1>
-<div class="container">
+<head>
+    <style>
+        button {background: #20B2AA; color: #FFFAF0; border: none; padding: 0.5rem 0.5rem; margin: 10px 10px 10px 0px}
+        .red { background: #C1172C; }
+        .brd {
+        border: 4px double black; /* Параметры границы */
+        /* background: #F4A460;  Цвет фона */
+        padding: 10px; /* Поля вокруг текста */
+        }
+    </style>
+</head>
+<h1 style="text-align:center; height: 5rem;"> Категории: </h1>
+<div class="container" style="margin-bottom: 100px;">
   {% for category in object_list %}
-    <div class="card">
-      <div class="card-body">
-          {{category.name}}:
-          {{category.description}}
-      </div>
-      <div class="card-body">
-          <a class="btn btn-info" href="{% url 'catalog:category_update' category.pk %}">Редактировать</a>
-          <a class="btn btn-danger" href="{% url 'catalog:category_delete' category.pk %}">Удалить</a>
-      </div>
+    <div class="brd">
+        <div class="card">
+          <div class="card-body" style="height: 2rem;">
+              <h4><strong >{{category.name}}:</strong> {{category.description}}</h4>
+          </div>
+          <div class="card-body">
+              <div class="btn-group">
+                  <form action="{% url 'catalog:category_update' category.pk %}">
+                  <button>Редактировать</button>
+                  </form>
+                  <form action="{% url 'catalog:category_delete' category.pk %}">
+                  <button class="red">Удалить</button>
+                  </form>
+              </div>
+          </div>
+        </div>
     </div>
   {% endfor %}
 </div>
