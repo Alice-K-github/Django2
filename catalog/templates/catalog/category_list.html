@@ -1,0 +1,19 @@
+{% extends 'catalog/home.html' %}
+{% load my_tags %}
+{% block content %}
+<h1> Категории: </h1>
+<div class="container">
+  {% for category in object_list %}
+    <div class="card">
+      <div class="card-body">
+          {{category.name}}:
+          {{category.description}}
+      </div>
+      <div class="card-body">
+          <p class="btn btn-info" href="{% url 'catalog:category_update' category.pk %}">Редактировать</p>
+          <p class="btn btn-danger" href="{% url 'catalog:category_delete' category.pk %}">Удалить</p>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

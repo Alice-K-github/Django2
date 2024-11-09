@@ -11,7 +11,7 @@ class Category(models.Model):
     description = models.CharField(max_length=150, verbose_name='Описание', **NULLABLE)
 
     def __str__(self):
-        return f'{self.name} {self.description}'
+        return f'{self.name}'
 
     class Meta:
         verbose_name = 'наименование категории'  # Настройка для наименования одного объекта

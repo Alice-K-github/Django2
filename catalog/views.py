@@ -1,9 +1,10 @@
+from datetime import datetime
+
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-
-from catalog.forms import ProductForm
-from catalog.models import Product
+from catalog.forms import ProductForm, CategoryForm
+from catalog.models import Product, Category
 
 
 # Контроллеры
@@ -25,6 +26,7 @@ class ProductDetailView(DetailView):
     model = Product
     # catalog/Product_detail
 
+
 class ProductCreateView(CreateView):
     # product_create
     model = Product
@@ -32,6 +34,10 @@ class ProductCreateView(CreateView):
     template_name = 'catalog/product_form.html' # шаблон
     success_url = reverse_lazy('catalog:product_list') # Перенаправляет на список продуктов после создания
 
+    def form_valid(self, form):
+        # Автоматическое добавление даты создания продукта
+        form.instance.created_at = datetime.now()
+        return super().form_valid(form)
 
 
 class ProductUpdateView(UpdateView):
@@ -47,6 +53,12 @@ class ProductUpdateView(UpdateView):
         return reverse('catalog:product_detail', args=[self.kwargs.get('pk')])
 
 
+    def form_valid(self, form):
+        # Автоматическое добавление даты редактирования продукта
+        form.instance.updated_at = datetime.now()
+        return super().form_valid(form)
+
+
 class ProductDeleteView(DeleteView):
     # product_delete
     model = Product
@@ -55,3 +67,33 @@ class ProductDeleteView(DeleteView):
 
 
 
+
+
+# Категории
+
+
+
+class CategoryListView(ListView):
+    model = Category
+
+
+class CategoryCreateView(CreateView):
+    model = Category
+    form_class = CategoryForm  # Подключение формы CategoryForm
+    template_name = 'catalog/category_form.html'  # шаблон
+    success_url = reverse_lazy('catalog:category_list')  # Перенаправляет на список категорий после создания
+
+
+class CategoryUpdateView(UpdateView):
+    # category_update
+    model = Category
+    form_class = CategoryForm # Подключение формы CategoryForm
+    template_name = 'catalog/category_form.html' # шаблон
+    success_url = reverse_lazy('catalog:category_list') # Перенаправляет на список категорий после создания
+
+
+class CategoryDeleteView(DeleteView):
+    # product_delete
+    model = Category
+    template_name = 'catalog/category_delete.html' # шаблон
+    success_url = reverse_lazy('catalog:category_list') # Перенаправляет на список категорий после удаления продукта

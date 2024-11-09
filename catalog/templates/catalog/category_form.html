@@ -3,12 +3,12 @@
 {% load static %}
 <html>
 <head>
-    <title>Форма Product</title>
+    <title>Форма Vategory</title>
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="mb-4">Создание\редактирование продукта</h1>
+        <h1 class="mb-4">Создание\редактирование категории</h1>
         <details close >
             <summary>Справка</summary>
             <p>Запрещённые слова: казино, криптовалюта, крипта, биржа, дешево, бесплатно, обман, полиция, радар.</p>
@@ -17,7 +17,7 @@
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-primary">Сохранить</button>
-            <a href="{% url 'catalog:product_list' %}" class="btn btn-secondary">Отмена</a>
+            <a href="{% url 'catalog:category_list' %}" class="btn btn-secondary">Отмена</a>
         </form>
     </div>
     <script src="/static/js/bootstrap.bundle.min.js"></script>
