@@ -1,4 +1,6 @@
 from django import forms
+
+from config.settings import bad_words
 from .models import Product, Category
 from django.core.exceptions import ValidationError
 
@@ -66,8 +68,9 @@ class ProductForm(forms.ModelForm):
         name = cleaned_data.get('name') # Получаем значение поля названия
         description = cleaned_data.get('description') # Получаем значение поля описания
 
-        if ("казино" or "криптовалюта" or "крипта" or "биржа" or "дешево" or "бесплатно" or "обман" or "полиция" or "радар") in (name or description):
-            self.add_error('name', 'В названии\описании нельзя использовать запрещённые слова. (смотрите справку)') # При наличии запрещённых слов выдаёт ошибку
+        for word in bad_words:
+            if word in name or word in description:
+                self.add_error('name', 'В названии\описании нельзя использовать запрещённые слова. (смотрите справку)')
 
 
 
@@ -100,9 +103,8 @@ class CategoryForm(forms.ModelForm):
         name = cleaned_data.get('name') # Получаем значение поля названия
         description = cleaned_data.get('description') # Получаем значение поля описания
 
-        if ("казино" or "криптовалюта" or "крипта" or "биржа" or "дешево" or "бесплатно" or "обман" or "полиция" or "радар") in (name or description):
-            self.add_error('name', 'В названии\описании нельзя использовать запрещённые слова. (смотрите справку)') # При наличии запрещённых слов выдаёт ошибку
 
-
-
+        for word in bad_words:
+            if word in name or word in description:
+                self.add_error('name', 'В названии\описании нельзя использовать запрещённые слова. (смотрите справку)')
 

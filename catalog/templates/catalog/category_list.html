@@ -10,8 +10,8 @@
           {{category.description}}
       </div>
       <div class="card-body">
-          <p class="btn btn-info" href="{% url 'catalog:category_update' category.pk %}">Редактировать</p>
-          <p class="btn btn-danger" href="{% url 'catalog:category_delete' category.pk %}">Удалить</p>
+          <a class="btn btn-info" href="{% url 'catalog:category_update' category.pk %}">Редактировать</a>
+          <a class="btn btn-danger" href="{% url 'catalog:category_delete' category.pk %}">Удалить</a>
       </div>
     </div>
   {% endfor %}

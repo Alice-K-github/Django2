@@ -14,7 +14,7 @@ def contacts(request):
 
 
 def home(request):
-    return render(request, 'home.html') # И это тоже -_(:\)_-
+    return render(request, 'home.html')
 
 
 class ProductListView(ListView):
