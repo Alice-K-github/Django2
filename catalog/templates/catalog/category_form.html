@@ -9,10 +9,7 @@
 <body>
     <div class="container mt-5">
         <h1 class="mb-4">Создание\редактирование категории</h1>
-        <details close >
-            <summary>Справка</summary>
-            <p>Запрещённые слова: </p>
-        </details>
+        {% include 'catalog/bad_words.html' %}
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}

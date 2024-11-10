@@ -5,9 +5,20 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from catalog.forms import ProductForm, CategoryForm
 from catalog.models import Product, Category
+from django.conf import settings
+from django.shortcuts import render
+
 
 
 # Контроллеры
+
+
+def Badwords_view(request):
+    context = {
+        'bad_words': settings.bad_words,
+    }
+    return render(request, 'bad_words.html', context)
+
 
 def contacts(request):
     return render(request, 'contacts.html') # Я без понятия зачем это мне
