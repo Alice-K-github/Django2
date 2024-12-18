@@ -9,7 +9,7 @@ app_name = 'users' # Приложение
 urlpatterns = [
         path("admin/", admin.site.urls), # Админка
         path('', home),
-        path("logged_out/", LogoutView.as_view(next_page='home'), name="logged_out"),
+        path("logout/", LogoutView.as_view(next_page='home'), name="logout"),
         path('login/', LoginView.as_view(), name='login'),
         path('register/', RegisterView.as_view(), name='register'),
     ]

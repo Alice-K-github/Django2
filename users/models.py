@@ -1,8 +1,8 @@
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-class CustomUser(AbstractBaseUser):
+class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(unique=True, verbose_name='Email')
     avatar = models.ImageField(verbose_name="Аватар", upload_to='pictures/', blank=True)
