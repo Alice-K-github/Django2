@@ -27,11 +27,11 @@ class CustomLogoutView(LogoutView):
 class RegisterView(FormView):
     form_class = CustomUserCreationForm
     template_name = 'register.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('users:login')
 
     def form_valid(self, form):
         user = form.save()
-        login(self.request, user)
+        """login(self.request, user)"""
         self.send_welcome_email(user.email)
         return super().form_valid(form)
 
