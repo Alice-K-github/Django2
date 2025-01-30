@@ -23,7 +23,7 @@ class Product(models.Model):
     #  Продукты
     name = models.CharField(max_length=150, verbose_name='Наименование', **NULLABLE)
     description = models.CharField(max_length=500, verbose_name='Описание', **NULLABLE)
-    picture = models.ImageField(upload_to='pictures/', verbose_name='Изображение(превью)', **NULLABLE)
+    picture = models.ImageField(upload_to='media/', verbose_name='Изображение(превью)', **NULLABLE)
     price = models.IntegerField(verbose_name='Цена за покупку', **NULLABLE)
     created_at = models.DateTimeField(verbose_name='Дата создания записи в БД', **NULLABLE)
     updated_at = models.DateTimeField(verbose_name='Дата последнего изменения записи в БД', **NULLABLE)
