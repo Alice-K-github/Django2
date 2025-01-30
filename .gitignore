@@ -121,6 +121,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+C:\Users\User\PycharmProjects\Django_1\.env
 .env
 .venv
 env/
