@@ -1,7 +1,11 @@
 from datetime import datetime
+from itertools import product
 
-from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseForbidden
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
+from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from catalog.forms import ProductForm, CategoryForm
 from catalog.models import Product, Category
@@ -70,13 +74,11 @@ class ProductUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     # product_delete
     model = Product
     template_name = 'catalog/product_delete.html' # шаблон
     success_url = reverse_lazy('catalog:product_list') # Перенаправляет на список продуктов после удаления продукта
-
-
 
 
 
@@ -108,3 +110,5 @@ class CategoryDeleteView(DeleteView):
     model = Category
     template_name = 'catalog/category_delete.html' # шаблон
     success_url = reverse_lazy('catalog:category_list') # Перенаправляет на список категорий после удаления продукта
+
+

@@ -28,7 +28,8 @@ class Product(models.Model):
     created_at = models.DateTimeField(verbose_name='Дата создания записи в БД', **NULLABLE)
     updated_at = models.DateTimeField(verbose_name='Дата последнего изменения записи в БД', **NULLABLE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    manufactured_at = models.DateTimeField(verbose_name='Дата производства продукта', **NULLABLE)
+    manufactured_at = models.DateTimeField(verbose_name='Дата производства продукта', **NULLABLE, default='False')
+    is_publicated = models.BooleanField(verbose_name="Статус публикации", **NULLABLE)
 
 
 
@@ -38,4 +39,7 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'наименование продукта'  # Настройка для наименования одного объекта
         verbose_name_plural = 'наименования продуктов'  # Настройка для наименования набора объектов
+        permissions  = [
+            ('can_unpublish_product', 'can unpublish product')
+        ]
 

@@ -2,8 +2,11 @@
 {% extends "home.html" %}
 
 {% block content %}
-  <h2>Вы вышли из системы</h2>
-  <p>Спасибо, что воспользовались нашим сайтом. Вы успешно вышли из системы.</p>
-  <a href="{% url 'login' %}">Войти снова</a>
+  <h2>Выход</h2>
+  <form action="/logout/" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Выйти</button>
+  </form>
 {% endblock %}
 
