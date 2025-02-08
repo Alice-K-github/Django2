@@ -3,7 +3,7 @@ from itertools import product
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseForbidden
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -37,12 +37,12 @@ class ProductListView(ListView):
     # catalog/Product_list.html
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     # catalog/Product_detail
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     # product_create
     model = Product
     form_class = ProductForm # Подключение формы ProductForm
@@ -55,7 +55,7 @@ class ProductCreateView(CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     # product_update
     model = Product
     form_class = ProductForm # Подключение формы ProductForm
@@ -81,7 +81,6 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('catalog:product_list') # Перенаправляет на список продуктов после удаления продукта
 
 
-
 # Категории
 
 
@@ -90,14 +89,14 @@ class CategoryListView(ListView):
     model = Category
 
 
-class CategoryCreateView(CreateView):
+class CategoryCreateView(LoginRequiredMixin, CreateView):
     model = Category
     form_class = CategoryForm  # Подключение формы CategoryForm
     template_name = 'catalog/category_form.html'  # шаблон
     success_url = reverse_lazy('catalog:category_list')  # Перенаправляет на список категорий после создания
 
 
-class CategoryUpdateView(UpdateView):
+class CategoryUpdateView(LoginRequiredMixin, UpdateView):
     # category_update
     model = Category
     form_class = CategoryForm # Подключение формы CategoryForm
@@ -105,7 +104,7 @@ class CategoryUpdateView(UpdateView):
     success_url = reverse_lazy('catalog:category_list') # Перенаправляет на список категорий после создания
 
 
-class CategoryDeleteView(DeleteView):
+class CategoryDeleteView(LoginRequiredMixin, DeleteView):
     # product_delete
     model = Category
     template_name = 'catalog/category_delete.html' # шаблон
