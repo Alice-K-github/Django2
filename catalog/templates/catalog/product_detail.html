@@ -20,12 +20,14 @@
                 <li>Дата последнего изменения: {{object.updated_at }}</li>
                 <li>Категория продукта: {{object.category}}</li>
                 <li>Дата производства: {{object.manufactured_at}}</li>
+                <li>Владелец карточки: {{object.owner}}</li>
 
             </ul>
         </div>
     </div>
     <div class="col-3">
         <div class="card-body">
+            {% if perms.catalog.change_product or user == product.owner %}
             <a class="btn btn-primary" href="{% url 'catalog:product_update' product.pk %}">
                 Редактировать
             </a>
@@ -33,6 +35,7 @@
             <a class="btn btn-danger" href="{% url 'catalog:product_delete' product.pk %}">
                 Удалить продукт
             </a>
+            {% endif %}
 
             <a class="btn btn-secondary" href="{% url 'catalog:product_list' %}">
                 Назад к списку продуктов

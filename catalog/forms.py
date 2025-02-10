@@ -73,6 +73,11 @@ class ProductForm(forms.ModelForm):
                 self.add_error('name', 'В названии\описании нельзя использовать запрещённые слова. (смотрите справку)')
 
 
+class ProductModeratorForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ['is_publicated']
+
 
 class CategoryForm(forms.ModelForm):
     class Meta:

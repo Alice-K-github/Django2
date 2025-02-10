@@ -1,13 +1,9 @@
 from datetime import datetime
-from itertools import product
-
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseForbidden
-from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy, reverse
-from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from catalog.forms import ProductForm, CategoryForm
+from catalog.forms import ProductForm, CategoryForm, ProductModeratorForm
 from catalog.models import Product, Category
 from django.conf import settings
 from django.shortcuts import render
@@ -52,15 +48,17 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         # Автоматическое добавление даты создания продукта
         form.instance.created_at = datetime.now()
+        form.instance.owner = self.request.user
         return super().form_valid(form)
 
 
-class ProductUpdateView(LoginRequiredMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     # product_update
     model = Product
     form_class = ProductForm # Подключение формы ProductForm
     template_name = 'catalog/product_form.html' # шаблон
     success_url = reverse_lazy('catalog:product_form') # (?) а это нужно тут вообще?
+    permission_required = 'catalog.change_product'
 
 
     def get_success_url(self):
@@ -74,12 +72,26 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-class ProductDeleteView(LoginRequiredMixin, DeleteView):
+    def get_form_class(self):
+            user = self.request.user
+            if user == self.object.owner:
+                return ProductForm
+            if user.has_perm('catalog.can_unpublish_product'):
+                return ProductModeratorForm
+            raise PermissionDenied
+
+
+class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     # product_delete
     model = Product
     template_name = 'catalog/product_delete.html' # шаблон
     success_url = reverse_lazy('catalog:product_list') # Перенаправляет на список продуктов после удаления продукта
+    permission_required = 'catalog.delete_product'
 
+    def get_form_class(self):
+        user = self.request.user
+        if not user.has_perm('catalog.delete_product') or not user == self.object.owner:
+            raise PermissionDenied
 
 # Категории
 

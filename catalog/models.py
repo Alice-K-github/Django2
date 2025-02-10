@@ -1,4 +1,7 @@
+from django.contrib.auth.models import User
 from django.db import models
+
+from users.models import CustomUser
 
 # Create your models here.
 
@@ -30,6 +33,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     manufactured_at = models.DateTimeField(verbose_name='Дата производства продукта', **NULLABLE, default='False')
     is_publicated = models.BooleanField(verbose_name="Статус публикации", **NULLABLE)
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='Владелец карточки', blank=True, null=True)
 
 
 
