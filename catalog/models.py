@@ -44,6 +44,6 @@ class Product(models.Model):
         verbose_name = 'наименование продукта'  # Настройка для наименования одного объекта
         verbose_name_plural = 'наименования продуктов'  # Настройка для наименования набора объектов
         permissions  = [
-            ('can_unpublish_product', 'can unpublish product')
+            ('can_unpublish_product', 'can unpublish product'),
         ]
 

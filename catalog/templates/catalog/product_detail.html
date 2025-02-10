@@ -31,7 +31,8 @@
             <a class="btn btn-primary" href="{% url 'catalog:product_update' product.pk %}">
                 Редактировать
             </a>
-
+            {% endif %}
+            {% if perms.catalog.change_product or user == product.owner %}
             <a class="btn btn-danger" href="{% url 'catalog:product_delete' product.pk %}">
                 Удалить продукт
             </a>
