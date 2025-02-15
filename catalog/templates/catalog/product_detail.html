@@ -1,0 +1,47 @@
+{% extends 'catalog/home.html' %}
+{% load my_tags %}
+{% block content %}
+<div class="row text-center">
+    <div class="col-5">
+        <div class="card mb-4 box-shadow d-flex flex-row">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">{{ object.name | title }}</h4>
+                <img src="{{ product.picture | media_filter }}" class="card-img-top img-fluid"
+                     style="width: 50%; height: auto; object-fit: cover;">
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card-body">
+            <h2 class="card-title pricing-card-title">Цена: {{object.price}}руб.</h2>
+            <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                <li>{{ object.description }}</li>
+                <li>Дата создания: {{object.created_at }}</li>
+                <li>Дата последнего изменения: {{object.updated_at }}</li>
+                <li>Категория продукта: {{object.category}}</li>
+                <li>Дата производства: {{object.manufactured_at}}</li>
+                <li>Владелец карточки: {{object.owner}}</li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card-body">
+            {% if perms.catalog.change_product or user == product.owner %}
+            <a class="btn btn-primary" href="{% url 'catalog:product_update' product.pk %}">
+                Редактировать
+            </a>
+            {% endif %}
+            {% if perms.catalog.change_product or user == product.owner %}
+            <a class="btn btn-danger" href="{% url 'catalog:product_delete' product.pk %}">
+                Удалить продукт
+            </a>
+            {% endif %}
+
+            <a class="btn btn-secondary" href="{% url 'catalog:product_list' %}">
+                Назад к списку продуктов
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
