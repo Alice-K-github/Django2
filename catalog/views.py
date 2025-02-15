@@ -1,13 +1,20 @@
 from datetime import datetime
+from lib2to3.fixes.fix_input import context
+
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
+from django.http import HttpResponse
 from django.urls import reverse_lazy, reverse
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from catalog.forms import ProductForm, CategoryForm, ProductModeratorForm
 from catalog.models import Product, Category
 from django.conf import settings
 from django.shortcuts import render
 
+from catalog.services import CategoryService
 
 
 # Контроллеры
@@ -31,8 +38,15 @@ def home(request):
 class ProductListView(ListView):
     model = Product
     # catalog/Product_list.html
+    def get_queryset(self):
+        queryset = cache.get('my_queryset')
+        if not queryset:
+            queryset = super().get_queryset()
+            cache.set('my_queryset', queryset, 60 * 15)  # Кешируем данные на 15 минут
+        return queryset
 
 
+@method_decorator(cache_page(60 * 15), name='dispatch')
 class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     # catalog/Product_detail
@@ -99,6 +113,17 @@ class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
 
 class CategoryListView(ListView):
     model = Category
+
+
+class CategoryDetailView(DetailView):
+    model = Category
+    template_name = 'catalog/category_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category_id = self.object.id
+        context['products'] = CategoryService.Products_in_category(category_id)
+        return context
 
 
 class CategoryCreateView(LoginRequiredMixin, CreateView):

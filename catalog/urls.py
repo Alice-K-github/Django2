@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from catalog.views import (ProductListView, contacts, home, ProductDetailView, ProductCreateView, ProductUpdateView,
                            ProductDeleteView, CategoryListView, CategoryCreateView, CategoryUpdateView,
-                           CategoryDeleteView)
+                           CategoryDeleteView, CategoryDetailView)
 
 app_name = 'catalog' # Приложение
 
@@ -21,5 +21,6 @@ urlpatterns = [
     path('category/new/', CategoryCreateView.as_view(), name='category_create'), # Создание категории
     path('category/<int:pk>/update', CategoryUpdateView.as_view(), name='category_update'), # Редактирование категории
     path('category/<int:pk>/delete/', CategoryDeleteView.as_view(), name='category_delete'), # Удаление категории
+    path('category/<int:pk>/', CategoryDetailView.as_view(), name='category_detail') # Детали категории
 ]
 
